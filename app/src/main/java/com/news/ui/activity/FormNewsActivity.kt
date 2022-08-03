@@ -4,15 +4,12 @@ import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.ViewModelProvider
 import com.news.R
-import com.news.database.AppDatabase
 import com.news.databinding.ActivityFormNewsBinding
 import com.news.model.News
-import com.news.repository.NewsRepository
 import com.news.ui.activity.extensions.showError
 import com.news.ui.viewmodel.FormNewsViewModel
-import com.news.ui.viewmodel.factory.FormNewsViewModelFactory
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 private const val ERROR_ON_FAIL = "Cannot possible to save the news."
 
@@ -26,14 +23,7 @@ class FormNewsActivity : AppCompatActivity() {
         intent.getLongExtra(NEWS_KEY, 0)
     }
 
-    private val viewModel by lazy {
-        val database = AppDatabase.getInstance(this)
-        val newsDao = database.newsDao
-        val newsRepository = NewsRepository(newsDao)
-        val factory = FormNewsViewModelFactory(newsRepository)
-        val provider = ViewModelProvider(this, factory)
-        provider[FormNewsViewModel::class.java]
-    }
+    private val viewModel: FormNewsViewModel by viewModel()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

@@ -5,15 +5,13 @@ import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.ViewModelProvider
 import com.news.R
-import com.news.database.AppDatabase
 import com.news.databinding.ActivityNewsViewBinding
 import com.news.model.News
-import com.news.repository.NewsRepository
 import com.news.ui.activity.extensions.showError
 import com.news.ui.viewmodel.ViewNewsViewModel
-import com.news.ui.viewmodel.factory.ViewNewsViewModelFactory
+import org.koin.androidx.viewmodel.ext.android.viewModel
+import org.koin.core.parameter.parametersOf
 
 private const val NEWS_NOT_FOUND = "News not found"
 private const val FAIL_ON_REMOVE_NEWS = "Unable to remove news"
@@ -28,14 +26,7 @@ class NewsViewActivity : AppCompatActivity() {
         intent.getLongExtra(NEWS_KEY, 0)
     }
 
-    private val viewModel by lazy {
-        val database = AppDatabase.getInstance(this)
-        val newsDao = database.newsDao
-        val newsRepository = NewsRepository(newsDao)
-        val factory = ViewNewsViewModelFactory(newsId, newsRepository)
-        val provider = ViewModelProvider(this, factory)
-        provider[ViewNewsViewModel::class.java]
-    }
+    private val viewModel: ViewNewsViewModel by viewModel { parametersOf(newsId) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
