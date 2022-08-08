@@ -2,9 +2,12 @@ package com.news.ui.recyclerview.adapter
 
 import android.content.Context
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.RecyclerView
+import com.news.R
 import com.news.databinding.NewsItemBinding
 import com.news.model.News
 
@@ -14,30 +17,25 @@ class ListNewsAdapter(
     var whenItemClicked: (news: News) -> Unit = {}
 ) : RecyclerView.Adapter<ListNewsAdapter.ViewHolder>() {
 
-    inner class ViewHolder(binding: NewsItemBinding) : RecyclerView.ViewHolder(binding.root) {
+    inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         private lateinit var news: News
-        private val itemNewsTitle : TextView
-        private val itemNewsText : TextView
         init {
-            itemNewsTitle = binding.itemNewsTitle
-            itemNewsText = binding.itemNewsText
-            binding.root.setOnClickListener {
-                if (::news.isInitialized)
+            itemView.setOnClickListener {
+                if (::news.isInitialized) {
                     whenItemClicked(news)
+                }
             }
         }
 
         fun bind(news: News) {
             this.news = news
-            itemNewsTitle.text = news.title
-            itemNewsText.text = news.text
+            itemView.findViewById<TextView>(R.id.item_noticia_titulo).text = news.title
+            itemView.findViewById<TextView>(R.id.item_noticia_texto).text = news.text
         }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val layoutInflater = LayoutInflater.from(context)
-        val newsItemBinding = NewsItemBinding.inflate(layoutInflater, parent, false)
-        return ViewHolder(newsItemBinding)
+        return ViewHolder(LayoutInflater.from(context).inflate(R.layout.news_item, parent, false))
     }
 
     override fun getItemCount() = news.size

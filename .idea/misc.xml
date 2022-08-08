@@ -6,13 +6,21 @@
         <entry key="app/src/main/res/drawable/ic_action_adiciona.xml" value="0.1" />
         <entry key="app/src/main/res/drawable/ic_action_edita.xml" value="0.1755" />
         <entry key="app/src/main/res/drawable/ic_action_remove.xml" value="0.1755" />
+        <entry key="app/src/main/res/layout-land/activity_news.xml" value="0.1" />
+        <entry key="app/src/main/res/layout-sw900dp-land/activity_news.xml" value="0.396875" />
         <entry key="app/src/main/res/layout/activity_formulario_noticia.xml" value="0.1" />
         <entry key="app/src/main/res/layout/activity_list_news.xml" value="0.31614583333333335" />
         <entry key="app/src/main/res/layout/activity_lista_basica.xml" value="0.31614583333333335" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.3098958333333333" />
+        <entry key="app/src/main/res/layout/activity_news.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/activity_news_view.xml" value="0.1" />
         <entry key="app/src/main/res/layout/activity_visualiza_noticia.xml" value="0.1" />
         <entry key="app/src/main/res/layout/content_lista_basica.xml" value="0.31614583333333335" />
         <entry key="app/src/main/res/layout/item_noticia.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/list_news.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/news_item.xml" value="0.3151041666666667" />
+        <entry key="app/src/main/res/layout/news_list.xml" value="0.3151041666666667" />
+        <entry key="app/src/main/res/layout/news_view.xml" value="0.1" />
         <entry key="app/src/main/res/menu/form_news_menu.xml" value="0.31614583333333335" />
         <entry key="app/src/main/res/menu/view_news_menu.xml" value="0.1" />
       </map>

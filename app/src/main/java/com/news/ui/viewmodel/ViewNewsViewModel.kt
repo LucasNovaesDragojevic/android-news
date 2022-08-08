@@ -11,10 +11,10 @@ class ViewNewsViewModel (
     private val newsRepository: NewsRepository
 ) : ViewModel() {
 
-    val newsFinded = newsRepository.findByID(id)
+    val newsFound = newsRepository.findByID(id)
 
     fun remove(): LiveData<Resource<Void?>> {
-        return newsFinded.value?.run {
+        return newsFound.value?.run {
             newsRepository.remove(this)
         } ?: MutableLiveData<Resource<Void?>>().also {
             it.value = Resource(null, "News not found")

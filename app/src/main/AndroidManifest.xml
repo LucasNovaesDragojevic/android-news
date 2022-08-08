@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    package="com.news">
+    package="com.news" >
+
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+
     <application
         android:name=".AppApplication"
         android:allowBackup="false"
@@ -15,21 +17,19 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.News"
         android:usesCleartextTraffic="true"
-        tools:targetApi="32">
+        tools:targetApi="32" >
         <activity
-            android:name=".ui.activity.NewsViewActivity"
-            android:exported="false" />
-        <activity
-            android:name=".ui.activity.FormNewsActivity"
-            android:exported="false" />
-        <activity
-            android:name=".ui.activity.ListNewsActivity"
-            android:exported="true">
+            android:name="com.news.ui.activity.NewsActivity"
+            android:exported="true" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".ui.activity.FormNewsActivity"
+            android:exported="false" />
     </application>
+
 </manifest>
