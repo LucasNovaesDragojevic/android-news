@@ -12,10 +12,9 @@ class FormNewsViewModel (
 
     fun findById(id: Long) = repository.findByID(id)
 
-    fun save(news: News): LiveData<Resource<Void?>> {
-        return if (news.id > 0)
+    fun save(news: News): LiveData<Resource<Void?>> =
+        if (news.id > 0)
             repository.edit(news)
         else
             repository.save(news)
-    }
 }

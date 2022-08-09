@@ -7,6 +7,11 @@ import com.news.asynctask.BaseAsyncTask
 import com.news.database.dao.NewsDao
 import com.news.model.News
 import com.news.retrofit.webclient.NewsWebClient
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Dispatchers.IO
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 class NewsRepository(
     private val newsDao: NewsDao,
@@ -36,12 +41,8 @@ class NewsRepository(
 
     fun save(news: News): LiveData<Resource<Void?>> {
         val liveData = MutableLiveData<Resource<Void?>>()
-        saveInAPI(news,
-            whenSuccess = {
-                liveData.value = Resource(null)
-            }, whenFail = {
-                liveData.value = Resource(null, it)
-            })
+        saveInAPI(news)
+        liveData.value = Resource(null)
         return liveData
     }
 
@@ -87,6 +88,15 @@ class NewsRepository(
         }, whenFail )
     }
 
+    private fun saveInAPI(news: News) {
+        val scope = CoroutineScope(IO)
+        scope.launch {
+            webclient.save(news)?.let {
+                newsDao.save(it)
+            }
+        }
+    }
+
     private fun saveInDB(news: List<News>) {
         BaseAsyncTask({
             newsDao.save(news)
@@ -94,11 +104,13 @@ class NewsRepository(
     }
 
     private fun saveInDB(news: News, whenSuccess: () -> Unit) {
-        BaseAsyncTask({
+        val scope = CoroutineScope(IO)
+        scope.launch {
             newsDao.save(news)
-        }, {
-            whenSuccess()
-        }).execute()
+            withContext(Dispatchers.Main) {
+                whenSuccess()
+            }
+        }
     }
 
     private fun removeFromAPI(news: News, whenSuccess: () -> Unit, whenFail: (error: String?) -> Unit) = webclient.remove(news.id, { removeFromDB(news, whenSuccess) }, whenFail)

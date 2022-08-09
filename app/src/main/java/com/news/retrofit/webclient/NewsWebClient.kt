@@ -31,6 +31,8 @@ class NewsWebClient(
 
     fun findAll(whenSuccess: (newsCreated: List<News>?) -> Unit, whenFail: (error: String?) -> Unit) = executeRequest(service.findAll(), whenSuccess, whenFail)
 
+    fun save(news: News) : News? = service.save(news).execute().body()
+
     fun save(news: News, whenSuccess: (newsCreated: News?) -> Unit, whenFail: (error: String?) -> Unit) = executeRequest(service.save(news), whenSuccess, whenFail)
 
     fun edit(id: Long, news: News, whenSuccess: (newsCreated: News?) -> Unit, whenFail: (error: String?) -> Unit) = executeRequest(service.edit(id, news), whenSuccess, whenFail)
